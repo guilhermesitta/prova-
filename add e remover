@@ -1,0 +1,64 @@
+# Definição da classe para um nó da lista duplamente encadeada
+class Node:
+    def __init__(self, valor):
+        self.valor = valor
+        self.anterior = None
+        self.proximo = None
+
+# Função para adicionar um nó no fim da lista
+def adicionar_no(lista, valor):
+    novo_no = Node(valor)
+    if lista is None:
+        lista = novo_no
+    else:
+        atual = lista
+        while atual.proximo is not None:
+            atual = atual.proximo
+        atual.proximo = novo_no
+        novo_no.anterior = atual
+    return lista
+
+# Função para remover os últimos n nós da lista
+def remover_ultimos_nos(lista, n):
+    if lista is None:
+        return lista
+
+    # Percorre até o último nó da lista
+    atual = lista
+    while atual.proximo is not None:
+        atual = atual.proximo
+
+    # Remove os n últimos nós da lista
+    for i in range(n):
+        if atual.anterior is not None:
+            atual = atual.anterior
+            atual.proximo = None
+        else:
+            lista = None
+
+    return lista
+
+# Criação da lista duplamente encadeada com 10 números de 0 a 9
+lista = None
+for i in range(10):
+    numero = i
+    lista = adicionar_no(lista, numero)
+
+# Mostra o conteúdo da lista original
+print("Conteúdo da lista original:")
+atual = lista
+while atual is not None:
+    print(atual.valor, end=" ")
+    atual = atual.proximo
+print()
+
+# Remove os 4 últimos números da lista
+lista = remover_ultimos_nos(lista, 4)
+
+# Mostra o conteúdo da lista após a remoção
+print("Conteúdo da lista após remoção dos 4 últimos números:")
+atual = lista
+while atual is not None:
+    print(atual.valor, end=" ")
+    atual = atual.proximo
+print()
