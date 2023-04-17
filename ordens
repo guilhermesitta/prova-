@@ -1,0 +1,47 @@
+# Definição da classe para um nó da árvore binária
+class Node:
+    def __init__(self, valor):
+        self.valor = valor
+        self.esquerda = None
+        self.direita = None
+
+# Função para caminhamento em ordem (esquerda -> raiz -> direita)
+def caminhamento_em_ordem(no):
+    if no is not None:
+        caminhamento_em_ordem(no.esquerda)
+        print(no.valor)  # Aqui é onde o teste do valor é feito (Válido: "Verde", Inválido: "Vermelho")
+        caminhamento_em_ordem(no.direita)
+
+# Função para caminhamento pré-ordem (raiz -> esquerda -> direita)
+def caminhamento_pre_ordem(no):
+    if no is not None:
+        print(no.valor)  # Aqui é onde o teste do valor é feito (Válido: "Verde", Inválido: "Vermelho")
+        caminhamento_pre_ordem(no.esquerda)
+        caminhamento_pre_ordem(no.direita)
+
+# Função para caminhamento pós-ordem (esquerda -> direita -> raiz)
+def caminhamento_pos_ordem(no):
+    if no is not None:
+        caminhamento_pos_ordem(no.esquerda)
+        caminhamento_pos_ordem(no.direita)
+        print(no.valor)  # Aqui é onde o teste do valor é feito (Válido: "Verde", Inválido: "Vermelho")
+
+# Construção da árvore binária de exemplo
+# Árvore:
+#         Verde
+#        /     \
+#     Vermelho  Vermelho
+
+raiz = Node("Verde")
+raiz.esquerda = Node("Vermelho")
+raiz.direita = Node("Vermelho")
+
+print("Caminhamento em ordem:")
+caminhamento_em_ordem(raiz)
+
+print("Caminhamento pré-ordem:")
+caminhamento_pre_ordem(raiz)
+
+print("Caminhamento pós-ordem:")
+caminhamento_pos_ordem(raiz)
+
