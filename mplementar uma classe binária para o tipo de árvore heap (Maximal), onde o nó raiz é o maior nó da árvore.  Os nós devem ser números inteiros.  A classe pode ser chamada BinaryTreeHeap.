@@ -1,0 +1,42 @@
+class BinaryTreeHeap:
+    def __init__(self):
+        self.heap_list = [0]  # Inicia a lista com um elemento vazio para simplificar o código
+        self.current_size = 0
+    
+    def push(self, k):
+     
+        self.heap_list.append(k)
+        self.current_size += 1
+        self._percolate_up(self.current_size)
+    
+    def pop(self):
+       
+        if self.current_size == 0:
+            raise ValueError("Heap vazio")
+        max_value = self.heap_list[1]
+        self.heap_list[1] = self.heap_list[self.current_size]
+        self.current_size -= 1
+        self.heap_list.pop()
+        self._percolate_down(1)
+        return max_value
+    
+    def _percolate_up(self, i):
+       
+        while i > 1 and self.heap_list[i] > self.heap_list[i // 2]:
+            self.heap_list[i], self.heap_list[i // 2] = self.heap_list[i // 2], self.heap_list[i]
+            i = i // 2
+    
+    def _percolate_down(self, i):
+     
+        while i * 2 <= self.current_size:
+            max_child_index = self._get_max_child_index(i)
+            if self.heap_list[i] < self.heap_list[max_child_index]:
+                self.heap_list[i], self.heap_list[max_child_index] = self.heap_list[max_child_index], self.heap_list[i]
+            i = max_child_index
+            
+    def _get_max_child_index(self, i):
+       
+        if i * 2 + 1 > self.current_size or self.heap_list[i * 2] > self.heap_list[i * 2 + 1]:
+            return i * 2
+        else:
+            return i * 2 + 1
