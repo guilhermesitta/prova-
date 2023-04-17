@@ -1,0 +1,32 @@
+# Definição da classe para um nó da árvore binária
+class Node:
+    def __init__(self, valor):
+        self.valor = valor
+        self.esquerda = None
+        self.direita = None
+
+# Função para adicionar um elemento à árvore
+def adicionar_elemento(no, valor):
+    if no is None:
+        return Node(valor)
+    elif valor < no.valor:
+        no.esquerda = adicionar_elemento(no.esquerda, valor)
+    else:
+        no.direita = adicionar_elemento(no.direita, valor)
+    return no
+
+# Função para percorrer a árvore em ordem e contar a quantidade de elementos
+def contar_elementos(no):
+    if no is None:
+        return 0
+    return 1 + contar_elementos(no.esquerda) + contar_elementos(no.direita)
+
+# Criação da árvore binária com 30 elementos
+arvore = None
+for i in range(30):
+    elemento = i + 1  # Números de 1 a 30
+    arvore = adicionar_elemento(arvore, elemento)
+
+# Teste para contar a quantidade de elementos na árvore
+quantidade = contar_elementos(arvore)
+print("Quantidade de elementos na árvore: ", quantidade)
