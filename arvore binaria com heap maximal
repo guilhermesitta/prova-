@@ -1,0 +1,72 @@
+class MaxHeap:
+    def __init__(self):
+        self.heap = []
+
+    def parent(self, i):
+        return (i - 1) // 2
+
+    def left_child(self, i):
+        return 2 * i + 1
+
+    def right_child(self, i):
+        return 2 * i + 2
+
+    def insert(self, item):
+        # Adiciona o novo item ao final da lista
+        self.heap.append(item)
+        index = len(self.heap) - 1
+
+        # Realiza o heapify para garantir a propriedade do Heap máximo
+        while index > 0 and self.heap[self.parent(index)] < self.heap[index]:
+            # Troca o item com seu pai enquanto o valor do pai for menor
+            self.heap[self.parent(index)], self.heap[index] = self.heap[index], self.heap[self.parent(index)]
+            index = self.parent(index)
+
+    def extract_max(self):
+        if not self.heap:
+            return None
+
+        # Extrai o máximo, que é sempre o primeiro item da lista
+        max_item = self.heap[0]
+
+        # Move o último item para a raiz e remove o último item
+        self.heap[0] = self.heap[-1]
+        self.heap.pop()
+
+        # Realiza o heapify para garantir a propriedade do Heap máximo
+        index = 0
+        while True:
+            max_index = index
+            left = self.left_child(index)
+            right = self.right_child(index)
+
+            # Compara o nó atual com seus filhos e encontra o maior valor
+            if left < len(self.heap) and self.heap[left] > self.heap[max_index]:
+                max_index = left
+            if right < len(self.heap) and self.heap[right] > self.heap[max_index]:
+                max_index = right
+
+            # Se o maior valor for o próprio nó atual, o heapify está completo
+            if max_index == index:
+                break
+
+            # Troca o item com seu filho enquanto o valor do filho for maior
+            self.heap[index], self.heap[max_index] = self.heap[max_index], self.heap[index]
+            index = max_index
+
+        return max_item
+
+
+
+
+
+
+
+
+A classe MaxHeap representa uma Heap maximal e possui os seguintes métodos:
+__init__(self): É o construtor da classe que inicializa a Heap vazia como uma lista.
+parent(self, i): Retorna o índice do pai do nó na posição i na lista.
+left_child(self, i): Retorna o índice do filho esquerdo do nó na posição i na lista.
+right_child(self, i): Retorna o índice do filho direito do nó na posição i na lista.
+insert(self, item): Insere um novo item na Heap mantendo a propriedade do Heap máximo. O novo item é adicionado ao final da lista e, em seguida, é feito um ajuste ascendente (chamado de "sobe na Heap") para garantir que o item seja movido para a posição correta em relação aos seus pais.
+extract_max(self):
