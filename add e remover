@@ -62,3 +62,25 @@ while atual is not None:
     print(atual.valor, end=" ")
     atual = atual.proximo
 print()
+
+
+
+
+
+
+
+
+class Heap:
+    def __init__(self):
+        self.heap = []
+
+    def insert(self, node):
+        self.heap.append(node)
+        self._bubble_up(len(self.heap) - 1)
+
+    def _bubble_up(self, i):
+        parent = (i - 1) // 2
+        if parent >= 0 and self.heap[i].populacao < self.heap[parent].populacao:
+            self.heap[i], self.heap[parent] = self.heap[parent], self.heap[i]
+            self._bubble_up(parent)
+
