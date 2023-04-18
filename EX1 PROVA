@@ -1,0 +1,25 @@
+matriz_triangular = [[0, 1004, 1366, 1679, 0, 0, 0, 0, 0, 0],
+                     [1004, 0, 2200, 3406, 3541, 0, 0, 0, 0, 0],
+                     [1366, 2200, 0, 2357, 3543, 3365, 0, 0, 0, 0],
+                     [1679, 3406, 2357, 0, 5763, 537, 4242, 4563, 4066, 0],
+                     [0, 3541, 3543, 5763, 0, 2061, 800, 5698, 298, 3779],
+                     [0, 0, 3365, 537, 2061, 0, 439, 1148, 2017, 852],
+                     [0, 0, 0, 4242, 800, 439, 0, 2625, 1553, 2338],
+                     [0, 0, 0, 4563, 5698, 1148, 2625, 0, 3090, 1131],
+                     [0, 0, 0, 4066, 298, 2017, 1553, 3090, 0, 2660],
+                     [0, 0, 0, 0, 3779, 852, 2338, 1131, 2660, 0]]
+
+def matriz_adjacencia(matriz_triangular):
+    n = len(matriz_triangular)
+    matriz_adj = [[0 for i in range(n)] for j in range(n)]
+    for i in range(n):
+        for j in range(n):
+            if i < j:
+                matriz_adj[i][j] = matriz_triangular[i][j]
+                matriz_adj[j][i] = matriz_triangular[i][j]
+            elif i == j:
+                matriz_adj[i][j] = matriz_triangular[i][j]
+    return matriz_adj
+
+matriz_adj = matriz_adjacencia(matriz_triangular)
+print(matriz_adj)
