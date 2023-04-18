@@ -1,0 +1,70 @@
+class Node:
+    def __init__(self, populacao, estado):
+        self.populacao = populacao
+        self.estado = estado
+
+class Heap:
+    def __init__(self):
+        self.heap = []
+
+    def insert(self, node):
+        # Adiciona o novo nó na última posição da heap
+        self.heap.append(node)
+        # Realiza a operação bubble up para corrigir a posição do novo nó
+        self.bubble_up(len(self.heap) - 1)
+
+    def remove(self):
+        if len(self.heap) == 1:
+            # Se há apenas um nó, remove e retorna o nó
+            return self.heap.pop()
+
+        # Armazena o nó raiz para retornar posteriormente
+        root = self.heap[0]
+        # Substitui o nó raiz pelo último nó adicionado
+        self.heap[0] = self.heap.pop()
+        # Realiza a operação bubble down para corrigir a posição do nó raiz
+        self.bubble_down(0)
+
+        # Retorna o nó raiz
+        return root
+
+    def bubble_up(self, index):
+        # Obtém o índice do pai do nó atual
+        parent_index = (index - 1) // 2
+
+        # Continua fazendo a operação bubble up enquanto o nó atual for maior que seu pai
+        while index > 0 and self.heap[index].populacao > self.heap[parent_index].populacao:
+            # Troca o nó atual com o pai
+            self.heap[index], self.heap[parent_index] = self.heap[parent_index], self.heap[index]
+            # Atualiza o índice do nó atual para continuar a operação
+            index = parent_index
+            # Obtém o novo índice do pai
+            parent_index = (index - 1) // 2
+
+    def bubble_down(self, index):
+        # Obtém os índices dos filhos do nó atual
+        left_child_index = 2 * index + 1
+        right_child_index = 2 * index + 2
+        # Inicializa a variável que armazenará o índice do maior filho
+        largest_child_index = index
+
+        # Verifica se o filho esquerdo existe e é maior que o nó atual
+        if left_child_index < len(self.heap) and self.heap[left_child_index].populacao > self.heap[largest_child_index].populacao:
+            largest_child_index = left_child_index
+
+        # Verifica se o filho direito existe e é maior que o nó atual
+        if right_child_index < len(self.heap) and self.heap[right_child_index].populacao > self.heap[largest_child_index].populacao:
+            largest_child_index = right_child_index
+
+        # Continua fazendo a operação bubble down enquanto o maior filho for maior que o nó atual
+        if largest_child_index != index:
+            # Troca o nó atual com o maior filho
+            self.heap[index], self.heap[largest_child_index] = self.heap[largest_child_index], self.heap[index]
+            # Atualiza o índice do nó atual para continuar a operação
+            index = largest_child_index
+            # Realiza a operação bubble down novamente com o novo índice do nó atual
+            self.bubble_down(index)
+
+def carregar_populacao_estado():
+    # Retorna um dicionário com os estados e suas respectivas populações
+    return
